@@ -50,12 +50,12 @@ CODE = [
 ]
 
 POSTITS = [
-    ("flutter\nrun", "#F7E07A"),
-    ("TODO:\nmais café", "#F2A7A0"),
-    ("<3 dart", "#9FD3F0"),
-    ("bug #42\n(é a Tutu)", "#B9E3A6"),
-    ("git push\n--force?\nNÃO", "#F7E07A"),
-    ("pub get", "#F2A7A0"),
+    ("flutter\nrun", "#F3E3A6"),
+    ("TODO:\nmais café", "#EBC9B8"),
+    ("<3 dart", "#C9D8DE"),
+    ("bug #42\n(é a Tutu)", "#CFDDBE"),
+    ("git push\n--force?\nNÃO", "#F3E3A6"),
+    ("pub get", "#EBC9B8"),
 ]
 
 
@@ -148,9 +148,9 @@ def sky_texture():
 # ---------------------------------------------------------------- props
 
 def floor(col):
-    # warm honey planks with real grain (procedural, baked into the lightmap)
+    # walnut planks with real grain (procedural, baked into the lightmap)
     woods = [decor.wood_material(f"wood_{i}", light, dark) for i, (light, dark) in enumerate(
-        (("#C98E5E", "#9C6A43"), ("#B97F52", "#8E5E3B"), ("#D19A6A", "#A5734B"), ("#BE8558", "#93633F")))]
+        (("#7E5639", "#5A3B26"), ("#724C32", "#523522"), ("#88603F", "#63432C"), ("#7A5336", "#573927")))]
     planks = []
     w = 0.16
     x = -2.4
@@ -172,8 +172,8 @@ def floor(col):
 
 
 def wall(col, sky):
-    wall_mat = decor.wallpaper_material("wall", "#7B6BB0", "#8C7CC2")
-    trim = material("trim", "#F6EFE6", rough=0.6)
+    wall_mat = decor.plaster_material("wall", "#E9E2D7")
+    trim = material("trim", "#F4F0EA", rough=0.6)
     parts = [assign(rounded_box("wall_back", (4.8, 0.08, 2.8), bevel=0.005, loc=(0, WALL_Y + 0.04, 1.4)), wall_mat),
              assign(rounded_box("baseboard", (4.8, 0.02, 0.09), bevel=0.006, loc=(0, WALL_Y - 0.005, 0.045)), trim)]
     w = join(parts, "wall")
@@ -199,7 +199,7 @@ def wall(col, sky):
 
 
 def desk(col):
-    white = material("desk_white", "#F3F1F4", rough=0.45)
+    white = decor.wood_material("desk_wood", "#B58A62", "#8E6747", scale=(6.0, 1.2, 6.0), rough=0.45)
     top = rounded_box("desk_top", (DESK_W, DESK_D, 0.045), bevel=0.018, loc=(0, DESK_D / 2, DESK_TOP - 0.0225))
     parts = [top]
     for sx in (1, -1):
@@ -210,14 +210,14 @@ def desk(col):
     parts.append(rounded_box("drawer", (0.4, DESK_D - 0.1, 0.16), bevel=0.014, loc=(0.58, DESK_D / 2, DESK_TOP - 0.12)))
     d = assign(join(parts, "desk"), white)
     handle = rounded_box("drawer_handle", (0.12, 0.02, 0.02), bevel=0.008, loc=(0.58, 0.04, DESK_TOP - 0.12),
-                         mat=material("handle", "#F7A8C8", rough=0.4))
+                         mat=material("handle", "#B8B2A7", rough=0.3, metal=0.8))
     for o in (d, handle):
         link(o, col)
     return [d, handle]
 
 
 def monitor(col, code_tex, notes):
-    body_mat = material("monitor_body", "#E9E6EE", rough=0.5)
+    body_mat = material("monitor_body", "#D6D3CE", rough=0.35, metal=0.4)
     cx, cy, cz = -0.22, 0.5, 1.08
     W, H = 0.66, 0.42
     shell = rounded_box("monitor_shell", (W, 0.06, H), bevel=0.03, loc=(cx, cy, cz))
@@ -254,7 +254,7 @@ def monitor(col, code_tex, notes):
 
 def keyboard(col):
     shell = rounded_box("kb_shell", (0.44, 0.15, 0.028), bevel=0.012, loc=(-0.22, 0.2, DESK_TOP + 0.014),
-                        rot=(math.radians(-3), 0, 0), mat=material("kb_shell", "#ECE9F0", rough=0.5))
+                        rot=(math.radians(-3), 0, 0), mat=material("kb_shell", "#D6D3CE", rough=0.4, metal=0.3))
     keys = []
     for r, (n, off) in enumerate(((13, 0.0), (12, 0.008), (11, 0.014), (10, 0.02))):
         for c in range(n):
@@ -263,10 +263,10 @@ def keyboard(col):
                                     loc=(x, 0.245 - r * 0.0305, DESK_TOP + 0.032 + r * 0.0015)))
     keys.append(rounded_box("space", (0.17, 0.026, 0.016), bevel=0.006, segments=2,
                             loc=(-0.22, 0.245 - 4 * 0.0305, DESK_TOP + 0.038)))
-    k = assign(join(keys, "keyboard_keys"), material("kb_keys", "#FBFAFC", rough=0.45))
+    k = assign(join(keys, "keyboard_keys"), material("kb_keys", "#F2EFEA", rough=0.45))
     accent = rounded_box("key_enter", (0.04, 0.026, 0.017), bevel=0.006, segments=2,
                          loc=(-0.22 + 0.2, 0.245 - 1.5 * 0.0305, DESK_TOP + 0.034),
-                         mat=material("kb_accent", "#F4B860", rough=0.4))
+                         mat=material("kb_accent", "#C9B79C", rough=0.4))
     for o in (shell, k, accent):
         link(o, col)
     return [shell, k, accent]
@@ -274,30 +274,30 @@ def keyboard(col):
 
 def mouse(col):
     pad = rounded_box("mouse_pad", (0.24, 0.2, 0.005), bevel=0.0025, segments=2, loc=(0.12, 0.22, DESK_TOP + 0.0025),
-                      mat=material("mouse_pad", "#7D6FA8", rough=0.85))
+                      mat=material("mouse_pad", "#4A4643", rough=0.9))
     m = sphere("mouse", 1, loc=(0.12, 0.21, DESK_TOP + 0.018), scale=(0.032, 0.052, 0.022),
-               mat=material("mouse", "#F3F1F4", rough=0.4))
+               mat=material("mouse", "#F2EFEA", rough=0.4))
     wheel = rounded_box("mouse_wheel", (0.006, 0.014, 0.008), bevel=0.003, loc=(0.12, 0.185, DESK_TOP + 0.038),
-                        mat=material("kb_accent", "#F4B860"))
+                        mat=material("kb_accent", "#C9B79C"))
     cable = tube("mouse_cable", [(0.12, 0.26, DESK_TOP + 0.01), (0.1, 0.4, DESK_TOP + 0.006),
                                  (0.0, 0.55, DESK_TOP + 0.006), (-0.12, 0.6, DESK_TOP + 0.006)], 0.004,
-                 mat=material("cable", "#ECE9F0", rough=0.6))
+                 mat=material("cable", "#D6D3CE", rough=0.6))
     for o in (pad, m, wheel, cable):
         link(o, col)
     return [pad, m, wheel, cable]
 
 
 def lamp(col):
-    shade_mat = material("lamp_shade", "#F7A8C8", rough=0.45)
-    metal = material("lamp_arm", "#F6EFE6", rough=0.4)
+    shade_mat = material("lamp_shade", "#EFE3CF", rough=0.6)
+    metal = material("lamp_arm", "#B8976A", rough=0.35, metal=0.8)
     bx, by = 0.8, 0.6  # set back to the right so the shade clears Tutu (0.42, 0.44)
-    base = cylinder("lamp_base", 0.075, 0.03, loc=(bx, by, DESK_TOP + 0.015), bevel=0.012, mat=shade_mat)
+    base = cylinder("lamp_base", 0.075, 0.03, loc=(bx, by, DESK_TOP + 0.015), bevel=0.012, mat=metal)
     j1 = Vector((bx, by, DESK_TOP + 0.03))
     j2 = Vector((bx - 0.05, by - 0.04, DESK_TOP + 0.36))
     j3 = Vector((bx - 0.17, by - 0.25, DESK_TOP + 0.44))
     arm1 = tube("lamp_arm1", [j1, (j1 + j2) / 2, j2], 0.012, mat=metal)
     arm2 = tube("lamp_arm2", [j2, (j2 + j3) / 2, j3], 0.012, mat=metal)
-    knuckle = sphere("lamp_knuckle", 0.022, loc=j2, mat=shade_mat)
+    knuckle = sphere("lamp_knuckle", 0.022, loc=j2, mat=metal)
     # bell shade pointing down toward the mug/keyboard area
     prof = [(0.0, 0.0), (0.03, 0.0), (0.045, -0.03), (0.08, -0.1), (0.095, -0.13), (0.09, -0.135)]
     me = bpy.data.meshes.new("shade")
@@ -326,8 +326,8 @@ def lamp(col):
 
 
 def chair(col):
-    dark = material("chair_dark", "#2A2944", rough=0.6)
-    seat_mat = decor.fabric_material("chair_seat", "#9C86E0", 160)
+    dark = material("chair_dark", "#2E2D2C", rough=0.5)
+    seat_mat = decor.fabric_material("chair_seat", "#3F4B68", 160)
     cx, cy = -0.22, -0.30
     seat_z = 0.56
     seat = rounded_box("chair_seat", (0.5, 0.48, 0.09), bevel=0.04, loc=(cx, cy, seat_z), mat=seat_mat)
@@ -359,8 +359,8 @@ def chair(col):
 def night_lights(scene, shade):
     world = bpy.data.worlds.new("night")
     world.use_nodes = True
-    world.node_tree.nodes["Background"].inputs[0].default_value = hex_rgba("#3A3060")
-    world.node_tree.nodes["Background"].inputs[1].default_value = 1.6
+    world.node_tree.nodes["Background"].inputs[0].default_value = hex_rgba("#4A3E36")
+    world.node_tree.nodes["Background"].inputs[1].default_value = 1.5
     scene.world = world
     lights = bpy.data.collections.new("lights")
     scene.collection.children.link(lights)
@@ -388,13 +388,15 @@ def night_lights(scene, shade):
     # feedback round 2: a softer lamp, a real glow from the monitor and a gentle room ambient
     add("lamp_key", "SPOT", lamp_pos, "#FFD2A1", 64, size=0.06, aim=(0.3, 0.3, DESK_TOP), spot=125)
     add("lamp_glow", "POINT", lamp_pos + Vector((0, -0.05, -0.02)), "#FFC9A0", 4.5, size=0.08)
-    add("monitor_glow", "AREA", (-0.22, 0.43, 1.08), "#A9D8F5", 45, size=0.62, aim=(-0.22, -1.0, 0.95))
-    add("ambient_fill", "AREA", (0.0, -0.4, 2.6), "#CDBDF5", 140, size=3.2, aim=(0.0, -0.1, 0.0))
-    add("moon_fill", "AREA", (0.55, WALL_Y - 0.15, 1.7), "#7C86C8", 10, size=0.8, aim=(0.0, -0.8, 0.6))
-    add("room_bounce", "AREA", (-1.2, -1.8, 2.4), "#5A4F96", 70, size=3.0, aim=(0, 0.3, 0.6))
+    add("monitor_glow", "AREA", (-0.22, 0.43, 1.08), "#CFDCE6", 28, size=0.62, aim=(-0.22, -1.0, 0.95))
+    add("ambient_fill", "AREA", (0.0, -0.4, 2.6), "#FFE6CC", 150, size=3.2, aim=(0.0, -0.1, 0.0))
+    add("moon_fill", "AREA", (0.55, WALL_Y - 0.15, 1.7), "#B4BAD0", 8, size=0.8, aim=(0.0, -0.8, 0.6))
+    add("room_bounce", "AREA", (-1.2, -1.8, 2.4), "#9C7D63", 70, size=3.0, aim=(0, 0.3, 0.6))
     # moonlight from a window behind the viewer, pooling on the floor where the mug breaks (scenes 3–6
     # happen down there; the desk would block light coming from the back wall)
-    add("moon_floor", "SPOT", (1.1, -1.9, 2.1), "#9AA2E0", 110, size=0.5, aim=(0.5, -0.4, 0.0), spot=50)
+    add("moon_floor", "SPOT", (1.1, -1.9, 2.1), "#E8D9C4", 100, size=0.5, aim=(0.5, -0.4, 0.0), spot=50)
+    # cosy corner: the little shelf lamp spills warm light over the books and the wall
+    add("shelf_glow", "POINT", (-0.86, WALL_Y - 0.2, 1.42), "#FFC98F", 18, size=0.1)
     scene.eevee.use_shadows = True
     scene.eevee.use_raytracing = True
     scene.view_settings.view_transform = "Khronos PBR Neutral"
@@ -430,9 +432,10 @@ def build():
     lamp_objs, shade = lamp(env)
     chair_obj, seat_top = chair(env)
     objs += lamp_objs + [chair_obj]
-    # cozy office (feedback round 2): bookshelf, framed art, fairy lights, big plant
-    objs += decor.bookshelf(env, WALL_Y) + decor.frames(env, WALL_Y) + decor.string_lights(env, WALL_Y)
-    objs += decor.floor_plant(env)
+    # cozy office (feedback round 3, natural palette): bookshelf with a little lamp, framed art, a woven rug and
+    # a big leafy plant — no fairy lights, nothing neon
+    objs += decor.bookshelf(env, WALL_Y) + decor.frames(env, WALL_Y)
+    objs += decor.floor_plant(env) + decor.rug(env)
 
     # markers the web app reads for positioning characters and the camera path
     markers = {
@@ -471,7 +474,7 @@ if __name__ == "__main__":
 
     fill_d = bpy.data.lights.new("preview_fill", "AREA")
     fill_d.size = 1.0
-    fill_d.color = hex_rgba("#C9C2F0")[:3]
+    fill_d.color = hex_rgba("#F2E2CF")[:3]
     fill = bpy.data.objects.new("preview_fill", fill_d)  # preview only, not in any GLB
     sc.collection.objects.link(fill)
 

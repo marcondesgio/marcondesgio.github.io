@@ -36,8 +36,8 @@ export function Lights() {
 
   return (
     <>
-      <color attach="background" args={['#241D3B']} />
-      <hemisphereLight args={['#C7B8F2', '#5A4038', 1.35]} />
+      <color attach="background" args={['#2A2320']} />
+      <hemisphereLight args={['#F3E4D0', '#5A4234', 1.3]} />
       {/* desk lamp: warm key */}
       <primitive object={lampTarget} />
       <spotLight
@@ -56,7 +56,7 @@ export function Lights() {
       <spotLight
         position={b2t(0.75, -0.9, 1.7)}
         target={spillTarget}
-        color="#FFE1EC"
+        color="#FFE6CC"
         intensity={4.5}
         distance={4}
         angle={0.55}
@@ -69,7 +69,7 @@ export function Lights() {
         <meshBasicMaterial map={poolMap} color="#FFD7C2" transparent opacity={0.14} depthWrite={false} blending={AdditiveBlending} toneMapped={false} />
       </mesh>
       {/* monitor: cool back light */}
-      <pointLight position={b2t(-0.22, 0.4, 1.05)} color="#A9D8F5" intensity={1.1} distance={3} decay={2} />
+      <pointLight position={b2t(-0.22, 0.4, 1.05)} color="#CFDCE6" intensity={0.8} distance={3} decay={2} />
     </>
   )
 }

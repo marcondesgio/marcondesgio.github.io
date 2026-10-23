@@ -37,9 +37,9 @@ const TUTU_LANDING_Q = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), d
 const JUMP_HEIGHT = 0.12
 
 // per-group brightness on top of the lightmaps (the floor scenes need a little lift; no re-bake needed)
-// per-lightmap gain, or an [r, g, b] tint: the floor bakes red (R:G:B ≈ 1:0.42:0.4) under the warm lamp and
-// lilac fill, so its green is lifted back toward honey wood (≈ 1:0.65:0.45)
-const BAKED_GAIN: Record<string, number | [number, number, number]> = { baked_floor: [0.82, 1.25, 0.95], baked_room: 1.2, baked_props: 1.05, baked_desk: 0.7, baked_chair: 0.8 }
+// per-lightmap gain, or an [r, g, b] tint. The cosy bake (round 3) is warm everywhere, so the desk under the lamp
+// is pulled down and slightly cooled, and the rest loses a touch of red so the wood doesn't turn orange
+const BAKED_GAIN: Record<string, number | [number, number, number]> = { baked_floor: [1.05, 1.05, 1.15], baked_room: [0.9, 0.9, 0.97], baked_props: [0.85, 0.86, 0.92], baked_desk: [0.52, 0.53, 0.62], baked_chair: 0.9 }
 
 /** Opens a project in a new tab; "coming soon" shards have no link. */
 export function openProject(index: number) {
@@ -92,14 +92,14 @@ export function Story() {
   const anchor = useMemo(() => gio.scene.getObjectByName('gio_cat_anchor'), [gio])
   const shardFx = useMemo(() => new ShardFx(fracture.scene), [fracture])
 
-  // the spilled coffee was near-black on the night floor: a warmer, lighter brown that still reads as liquid
+  // the spilled coffee: a deep espresso brown, glossy so the overhead light still picks it out on the floor
   useEffect(() => {
     fracture.scene.traverse((o) => {
       const mat = (o as Mesh).material as MeshStandardMaterial | undefined
       if (mat?.name === 'coffee_spill') {
-        mat.color.set('#7A4A2E')
-        mat.roughness = 0.22
-        mat.emissive.set('#2A140C')
+        mat.color.set('#3A2016')
+        mat.roughness = 0.12
+        mat.emissive.set('#0E0604')
       }
     })
   }, [fracture])

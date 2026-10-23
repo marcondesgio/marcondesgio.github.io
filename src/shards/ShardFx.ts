@@ -14,7 +14,7 @@ import {
 import { projects } from '../data/projects'
 import { INTERACTIVE_FROM, INTERACTIVE_TO, shardStore } from './shardStore'
 
-const LAMP = new Color('#FF8FC0') // rim glow in the site's pink accent
+const LAMP = new Color('#FFC98F') // warm rim glow, like the desk lamp
 const SHARD_NAME = /^shard_(\d\d)$/
 
 type RimUniforms = { uRim: { value: number }; uRimColor: { value: Color }; uLift: { value: number } }
@@ -63,7 +63,8 @@ function haloTexture() {
   g.fillRect(0, 0, 128, 128)
   return new CanvasTexture(c)
 }
-const HALO_COLORS = ['#FF8FC0', '#B99CFF', '#7EE6D9', '#FFB8C9', '#C9B8FF']
+// warm candle tones (feedback round 3: no neon in the room)
+const HALO_COLORS = ['#FFD39A', '#FFC48A', '#F5DDB8', '#FFCFA8', '#F0D9B5']
 
 /**
  * The five project shards inside cup_fracture.glb: rim glow, a small float while scene 4 is on, and the

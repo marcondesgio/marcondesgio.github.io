@@ -11,7 +11,7 @@ const NEUTRAL = 8
 export function Effects({ mobile }: { mobile: boolean }) {
   return (
     <EffectComposer multisampling={mobile ? 0 : 4}>
-      <Bloom mipmapBlur luminanceThreshold={0.9} luminanceSmoothing={0.15} intensity={0.5} radius={0.65} />
+      <Bloom mipmapBlur luminanceThreshold={0.92} luminanceSmoothing={0.15} intensity={0.35} radius={0.6} />
       <Vignette offset={0.38} darkness={0.22} />
       <Noise premultiply opacity={0.18} />
       <ToneMapping mode={NEUTRAL} />

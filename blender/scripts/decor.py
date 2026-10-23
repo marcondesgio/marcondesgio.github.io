@@ -14,7 +14,8 @@ from mathutils import Matrix, Vector
 from common import TEX_DIR, assign, cylinder, hex_rgba, join, rounded_box, smooth, sphere, text_image, tube
 
 # soft, cute palette for props (matches the site's pink / lilac / aqua accents)
-PASTELS = ["#F7A8C8", "#C3A8FF", "#8FE0D6", "#FFE3A3", "#A8E6B8", "#FFB3A7", "#F6EFE6", "#9EC5FF"]
+# muted, natural book spines (feedback round 3: the pastels read as neon)
+PASTELS = ["#3E4A5C", "#7A8B74", "#C9B79C", "#8C5A4A", "#E3DAC9", "#5B6B7A", "#A88D6B", "#2F3A40"]
 
 
 # ---------------------------------------------------------------- procedural materials
@@ -119,6 +120,30 @@ def wallpaper_material(name, base, dot, scale=14.0):
     return mat
 
 
+def plaster_material(name, base, scale=6.0):
+    """Warm painted plaster: the base colour with a very soft mottling and a fine bump."""
+    mat, nt, bsdf = _principled(name, 0.9)
+    co = _coords(nt, (scale, scale, scale))
+    noise = nt.nodes.new("ShaderNodeTexNoise")
+    noise.inputs["Scale"].default_value = 3.0
+    noise.inputs["Detail"].default_value = 6
+    ramp = nt.nodes.new("ShaderNodeValToRGB")
+    ramp.color_ramp.elements[0].color = tuple(c * 0.94 for c in hex_rgba(base)[:3]) + (1,)
+    ramp.color_ramp.elements[1].color = hex_rgba(base)
+    bump = nt.nodes.new("ShaderNodeBump")
+    bump.inputs["Strength"].default_value = 0.05
+    fine = nt.nodes.new("ShaderNodeTexNoise")
+    fine.inputs["Scale"].default_value = 120
+    L = nt.links.new
+    L(co, noise.inputs["Vector"])
+    L(co, fine.inputs["Vector"])
+    L(noise.outputs["Fac"], ramp.inputs["Fac"])
+    L(ramp.outputs["Color"], bsdf.inputs["Base Color"])
+    L(fine.outputs["Fac"], bump.inputs["Height"])
+    L(bump.outputs["Normal"], bsdf.inputs["Normal"])
+    return mat
+
+
 def flat(name, color, rough=0.6, emit=None, strength=0.0):
     mat, nt, bsdf = _principled(name, rough)
     bsdf.inputs["Base Color"].default_value = hex_rgba(color)
@@ -131,8 +156,8 @@ def flat(name, color, rough=0.6, emit=None, strength=0.0):
 # ---------------------------------------------------------------- props
 
 def bookshelf(col, wall_y, x=-1.08):
-    """Tall bookshelf left of the desk: pastel books, a ball of yarn, a mini plant and a tiny photo."""
-    wood = wood_material("shelf_wood", "#D9A877", "#B57F52", scale=(8.0, 8.0, 1.0))
+    """Tall walnut bookshelf left of the desk: muted books, a ball of yarn, a small plant and a warm little lamp."""
+    wood = wood_material("shelf_wood", "#8A6446", "#694A33", scale=(8.0, 8.0, 1.0))
     w, d, h = 0.72, 0.3, 1.8
     y = wall_y - d / 2 - 0.01
     parts = [
@@ -162,13 +187,17 @@ def bookshelf(col, wall_y, x=-1.08):
             books.append(b)
             bx += bw + (0.03 if lean else 0.004)
     objs.append(join(books, "books"))
-    # knick-knacks: yarn ball (cat house!), mini cactus pot, tiny framed photo
-    yarn = sphere("yarn", 0.055, loc=(x + w / 2 - 0.12, y, levels[1] + 0.07), mat=fabric_material("yarn_mat", "#F7A8C8", 90))
+    # knick-knacks: yarn ball (cat house!), a small plant in a white pot, a warm glowing lamp
+    yarn = sphere("yarn", 0.055, loc=(x + w / 2 - 0.12, y, levels[1] + 0.07), mat=fabric_material("yarn_mat", "#C98B6B", 90))
     pot = cylinder("shelf_plantpot", 0.04, 0.07, loc=(x + w / 2 - 0.11, y, levels[3] + 0.05), bevel=0.008,
-                   mat=flat("shelf_pot", "#8FE0D6", 0.6))
+                   mat=flat("shelf_pot", "#EEE9E1", 0.6))
     cactus = sphere("shelf_plant", 0.035, loc=(x + w / 2 - 0.11, y, levels[3] + 0.12), scale=(1, 1, 1.6),
-                    mat=flat("cactus", "#6FBF8E", 0.7))
-    objs += [yarn, pot, cactus]
+                    mat=flat("cactus", "#5E7F4C", 0.7))
+    lamp_base = cylinder("shelf_lamp_base", 0.03, 0.02, loc=(x + w / 2 - 0.12, y, levels[2] + 0.025), bevel=0.006,
+                         mat=flat("shelf_lamp_wood", "#6B4B33", 0.5))
+    lamp_glow = cylinder("shelf_lamp_shade", 0.045, 0.12, loc=(x + w / 2 - 0.12, y, levels[2] + 0.1), bevel=0.02,
+                         mat=flat("shelf_lamp_glow", "#FFF1DC", 0.4, emit="#FFD39A", strength=3.5))
+    objs += [yarn, pot, cactus, lamp_base, lamp_glow]
     for o in objs:
         _link(o, col)
     return objs
@@ -181,13 +210,13 @@ def poster(name, lines, font, bg, ink, size=(384, 480)):
 
 
 def frames(col, wall_y):
-    """Framed posters: cute dev / cat art in the site palette."""
+    """Framed prints in soft paper tones: dev / cat art."""
     specs = [
-        ("poster_hello", ["hello,", "world"], "georgiai.ttf", "#F7A8C8", "#2B2440", (-0.78, 1.78), (0.32, 0.4)),
-        ("poster_braces", ["{ }"], "consolab.ttf", "#C3A8FF", "#2B2440", (-0.42, 1.6), (0.22, 0.22)),
-        ("poster_miau", ["miau", ":3"], "segoepr.ttf", "#8FE0D6", "#2B2440", (1.18, 1.72), (0.3, 0.38)),
+        ("poster_hello", ["hello,", "world"], "georgiai.ttf", "#E6D7BE", "#3B3027", (-0.78, 1.78), (0.32, 0.4)),
+        ("poster_braces", ["{ }"], "consolab.ttf", "#B9C2AE", "#2F3A33", (-0.42, 1.6), (0.22, 0.22)),
+        ("poster_miau", ["miau", ":3"], "segoepr.ttf", "#E8D6C8", "#3B3027", (1.18, 1.72), (0.3, 0.38)),
     ]
-    wood = wood_material("frame_wood", "#E8C9A4", "#C9A27C", scale=(10, 10, 10))
+    wood = wood_material("frame_wood", "#6E5039", "#523A28", scale=(10, 10, 10))
     objs = []
     for name, lines, font, bg, ink, (fx, fz), (fw, fh) in specs:
         img = poster(name, lines, font, bg, ink, size=(384, int(384 * fh / fw)))
@@ -211,12 +240,12 @@ def frames(col, wall_y):
 
 def curtains(col, wall_y, wx, wz, ww, wh):
     """Two gathered fabric panels and a rod around the window."""
-    fabric = fabric_material("curtain_fabric", "#F7A8C8", 220)
+    fabric = fabric_material("curtain_fabric", "#DCCFBA", 220)
     top = wz + wh / 2 + 0.12
     bottom = wz - wh / 2 - 0.18
     objs = [tube("curtain_rod", [(wx - ww / 2 - 0.3, wall_y - 0.08, top + 0.03), (wx, wall_y - 0.08, top + 0.03),
                                  (wx + ww / 2 + 0.3, wall_y - 0.08, top + 0.03)], 0.012,
-                 mat=flat("rod", "#F6EFE6", 0.4))]
+                 mat=flat("rod", "#B8976A", 0.35))]
     for side in (-1, 1):
         x0 = wx + side * (ww / 2 + 0.14)
         width = 0.3
@@ -288,21 +317,24 @@ def leaf(name, base, direction, length, width):
 
 def floor_plant(col, x=1.18, y=0.42):
     """Big leafy plant beside the desk."""
-    pot = cylinder("floorplant_pot", 0.15, 0.32, loc=(x, y, 0.16), bevel=0.02, mat=flat("floor_pot", "#C3A8FF", 0.55))
+    pot = cylinder("floorplant_pot", 0.15, 0.32, loc=(x, y, 0.16), bevel=0.02, mat=flat("floor_pot", "#EEE9E1", 0.5))
     soil = cylinder("floorplant_soil", 0.135, 0.01, loc=(x, y, 0.315), mat=flat("soil", "#4A3326", 0.9))
     rnd = random.Random(9)
     stems, leaves = [], []
-    for i in range(9):
-        a = i / 9 * math.tau + rnd.uniform(-0.2, 0.2)
-        h = rnd.uniform(0.55, 1.05)
+    for i in range(15):
+        a = i / 15 * math.tau + rnd.uniform(-0.2, 0.2)
+        h = rnd.uniform(0.5, 1.1)
         base = Vector((x, y, 0.32))
         tip = base + Vector((math.cos(a) * 0.22, math.sin(a) * 0.18, h))
         mid = (base + tip) / 2 + Vector((math.cos(a) * 0.04, math.sin(a) * 0.04, 0.05))
         stems.append(tube(f"floorplant_stem{i}", [base, mid, tip], 0.008))
-        out = Vector((math.cos(a), math.sin(a), 0.35))
-        leaves.append(leaf(f"floorplant_leaf{i}", tip, out, rnd.uniform(0.22, 0.3), rnd.uniform(0.08, 0.11)))
-    green = flat("plant_green", "#5FAF7A", 0.55)
-    stem_o = assign(join(stems, "floorplant_stems"), flat("plant_stem", "#4E8F62", 0.6))
+        # long, slender leaves arching out and down (round ones read as lily pads)
+        out = Vector((math.cos(a), math.sin(a), -0.35))
+        leaves.append(leaf(f"floorplant_leaf{i}", tip, out, rnd.uniform(0.34, 0.42), rnd.uniform(0.05, 0.065)))
+        side = Vector((math.cos(a + 0.9), math.sin(a + 0.9), -0.15))
+        leaves.append(leaf(f"floorplant_leafm{i}", mid, side, rnd.uniform(0.24, 0.3), rnd.uniform(0.04, 0.05)))
+    green = flat("plant_green", "#4F7A3E", 0.6)
+    stem_o = assign(join(stems, "floorplant_stems"), flat("plant_stem", "#5C4A32", 0.6))
     leaf_o = assign(join(leaves, "floorplant_leaves"), green)
     objs = [pot, soil, stem_o, leaf_o]
     for o in objs:
@@ -312,7 +344,7 @@ def floor_plant(col, x=1.18, y=0.42):
 
 def sill_plant(col, x, y, z):
     """Small potted plant on the window sill (replaces the old tube leaves)."""
-    pot = cylinder("pot", 0.06, 0.1, loc=(x, y, z + 0.05), bevel=0.01, mat=flat("pot_mat", "#F7A8C8", 0.6))
+    pot = cylinder("pot", 0.06, 0.1, loc=(x, y, z + 0.05), bevel=0.01, mat=flat("pot_mat", "#C0805A", 0.7))
     rnd = random.Random(2)
     leaves = []
     for i in range(8):
@@ -320,10 +352,24 @@ def sill_plant(col, x, y, z):
         base = Vector((x, y, z + 0.1))
         leaves.append(leaf(f"sill_leaf{i}", base, (math.cos(a) * 0.6, math.sin(a) * 0.5, 1.0),
                            rnd.uniform(0.1, 0.15), 0.035))
-    plant = assign(join(leaves, "plant_leaves"), flat("leaf_mat", "#6FBF8E", 0.6))
+    plant = assign(join(leaves, "plant_leaves"), flat("leaf_mat", "#5E8A48", 0.6))
     for o in (pot, plant):
         _link(o, col)
     return [pot, plant]
+
+
+def rug(col, x=-0.85, y=-0.6, w=1.3, d=1.0):
+    """Woven wool rug under the reading corner, kept clear of where the mug breaks (0.5, -0.34)."""
+    body = rounded_box("floor_rug", (w, d, 0.012), bevel=0.005, segments=2, loc=(x, y, 0.006),
+                       mat=fabric_material("rug_wool", "#CDBFA8", 90))
+    border = rounded_box("floor_rug_border", (w - 0.08, d - 0.08, 0.004), bevel=0.002, segments=1,
+                         loc=(x, y, 0.0125), mat=fabric_material("rug_border", "#A8907A", 90))
+    inner = rounded_box("floor_rug_inner", (w - 0.16, d - 0.16, 0.005), bevel=0.002, segments=1,
+                        loc=(x, y, 0.013), mat=fabric_material("rug_wool2", "#D9CDB8", 90))
+    objs = [body, border, inner]
+    for o in objs:
+        _link(o, col)
+    return objs
 
 
 def _link(obj, col):
