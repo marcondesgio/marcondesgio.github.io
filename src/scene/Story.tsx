@@ -37,7 +37,9 @@ const TUTU_LANDING_Q = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), d
 const JUMP_HEIGHT = 0.12
 
 // per-group brightness on top of the lightmaps (the floor scenes need a little lift; no re-bake needed)
-const BAKED_GAIN: Record<string, number> = { baked_floor: 2.6, baked_room: 1.7, baked_props: 1.5, baked_desk: 1.05, baked_chair: 1.2 }
+// per-lightmap gain, or an [r, g, b] tint: the floor bakes red (R:G:B ≈ 1:0.42:0.4) under the warm lamp and
+// lilac fill, so its green is lifted back toward honey wood (≈ 1:0.65:0.45)
+const BAKED_GAIN: Record<string, number | [number, number, number]> = { baked_floor: [0.82, 1.25, 0.95], baked_room: 1.2, baked_props: 1.05, baked_desk: 0.7, baked_chair: 0.8 }
 
 /** Opens a project in a new tab; "coming soon" shards have no link. */
 export function openProject(index: number) {
@@ -112,7 +114,8 @@ export function Story() {
       const mat = mesh.material as MeshStandardMaterial
       if (mat.name.startsWith('baked_')) {
         const gain = BAKED_GAIN[mat.name] ?? 1
-        mesh.material = new MeshBasicMaterial({ map: mat.map, name: mat.name, color: new Color(gain, gain, gain) })
+        const [r, g, b] = typeof gain === 'number' ? [gain, gain, gain] : gain
+        mesh.material = new MeshBasicMaterial({ map: mat.map, name: mat.name, color: new Color(r, g, b) })
       } else if (mesh.name === 'monitor_screen') {
         screen = mat.emissiveMap ?? mat.map
         if (screen) {
@@ -162,8 +165,10 @@ export function Story() {
       chairY: +(chair?.rotation.y ?? 0).toFixed(4),
       focus: round(cupFocus),
       cupVisible: cupRef.current?.visible,
+      // the swatting paw (three.js drops the '.' from "front_paw.L")
+      tutuPaw: round(tutu.scene.getObjectByName('front_pawL')?.getWorldPosition(v) ?? v.set(0, 0, 0)),
     })
-  }, [getThree, gio, shardFx, chair])
+  }, [getThree, gio, tutu, shardFx, chair])
 
   useEffect(() => {
     debug.registerClips('gio', players.gio.names)

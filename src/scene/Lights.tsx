@@ -66,7 +66,7 @@ export function Lights() {
       {/* …and the matching pool of light on the floor, whose lightmap ignores real-time lights */}
       <mesh position={b2t(0.5, -0.34, 0.004)} rotation-x={-Math.PI / 2} renderOrder={1}>
         <planeGeometry args={[1.3, 1.3]} />
-        <meshBasicMaterial map={poolMap} color="#FFD7C2" transparent opacity={0.32} depthWrite={false} blending={AdditiveBlending} toneMapped={false} />
+        <meshBasicMaterial map={poolMap} color="#FFD7C2" transparent opacity={0.14} depthWrite={false} blending={AdditiveBlending} toneMapped={false} />
       </mesh>
       {/* monitor: cool back light */}
       <pointLight position={b2t(-0.22, 0.4, 1.05)} color="#A9D8F5" intensity={1.1} distance={3} decay={2} />

@@ -138,11 +138,11 @@ export class ShardFx {
       // halo: a soft coloured light pool on the floor right under the shard
       s.root.getWorldPosition(s.halo.position)
       s.halo.position.y = 0.006
-      const haloTarget = !live ? 0 : (s.index === active ? 0.95 : comingSoon ? 0.18 : 0.45 + 0.3 * pulse) * fadeIn
+      const haloTarget = !live ? 0 : (s.index === active ? 1 : comingSoon ? 0.25 : 0.65 + 0.35 * pulse) * fadeIn
       const m = s.halo.material
       m.opacity += (haloTarget - m.opacity) * Math.min(1, delta * 6)
       s.halo.visible = m.opacity > 0.01
-      s.halo.scale.setScalar(0.16 + 0.04 * (s.index === active ? 1 : pulse))
+      s.halo.scale.setScalar(0.2 + 0.05 * (s.index === active ? 1 : pulse))
     }
 
     const a = active === null ? undefined : this.shards.find((s) => s.index === active)
