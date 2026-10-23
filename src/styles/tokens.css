@@ -1,0 +1,69 @@
+/* Design system "Noite na bancada" v0.2 — feedback round 2: a softer, cuter, more feminine palette
+   (pink / lilac / aqua accents on a plum night) replacing the v0.1 gold. Contrast measured on --night. */
+:root {
+  /* palette */
+  --night: #241d3b; /* page + scene background (plum night) */
+  --surface: #332a56; /* cards, labels, panels */
+  --border: #4a3f75; /* 1px dividers and outlines */
+  --cream: #fff5f8; /* main text, titles, icons — 15.6:1 */
+  --text-soft: #c1b6de; /* captions — 8.4:1 */
+  --accent: #ff8fc0; /* "rosa chiclete": primary accent — CTA, focus, progress, glow — 7.6:1 */
+  --lilac: #b99cff; /* secondary accent — tags, timeline, details — 6.9:1 */
+  --aqua: #7ee6d9; /* links, active language, "dev" details — 11.3:1 */
+  --blush: #ffb8c9; /* "em breve", soft badges — 10.1:1 */
+  --coffee: #6b4a3a; /* decorative only, never text */
+  --coffee-light: #e0b9a3; /* text in coffee tone */
+
+  /* type */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --fs-display-xl: clamp(56px, 9vw, 128px);
+  --fs-display-l: clamp(40px, 5vw, 64px);
+  --fs-heading: 40px;
+  --fs-lead: 22px;
+  --fs-body: 17px;
+  --fs-label: 12px;
+  --tracking-label: 0.12em;
+
+  /* spacing (base 4) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* radii */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* elevation in the dark */
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.2);
+  --shadow-2: 0 6px 18px rgb(0 0 0 / 0.35), 0 2px 4px rgb(0 0 0 / 0.25);
+  --shadow-3: 0 18px 48px rgb(0 0 0 / 0.45), 0 4px 12px rgb(0 0 0 / 0.3);
+
+  /* glows: the scene's light leaking into the UI */
+  --glow-accent: 0 0 0 6px rgb(255 143 192 / 0.18), 0 0 28px rgb(255 143 192 / 0.45);
+  --glow-aqua: 0 0 0 1px var(--aqua), 0 0 18px rgb(126 230 217 / 0.45);
+  --glow-blush: 0 0 24px rgb(255 184 201 / 0.45);
+
+  /* motion */
+  --ease-out: ease-out;
+  --ease-enter: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-hover: 200ms;
+  --dur-enter: 480ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-enter: 1ms;
+  }
+}

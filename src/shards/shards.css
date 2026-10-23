@@ -1,0 +1,172 @@
+/* Floating project label — design system page 4 / 9 */
+.shard-label-wrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 12;
+  width: min(360px, calc(100vw - 32px));
+  visibility: hidden;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.shard-label {
+  position: relative;
+  padding: var(--space-6);
+  border: 1px solid rgb(255 143 192 / 0.45);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgb(60 50 100 / 0.96), rgb(51 42 86 / 0.96));
+  box-shadow: var(--shadow-2), 0 0 32px rgb(255 143 192 / 0.18);
+  animation: label-in var(--dur-enter) var(--ease-enter) both;
+}
+.shard-label p {
+  margin: 0;
+}
+.shard-label-kicker {
+  color: var(--accent);
+}
+.shard-label-title {
+  margin-top: var(--space-2) !important;
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1.15;
+  color: var(--cream);
+}
+.shard-label-body {
+  margin-top: var(--space-2) !important;
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.shard-label .shard-label-link {
+  margin-top: var(--space-3) !important;
+  color: var(--aqua);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+/* guide line from the card to the shard */
+.shard-label::after {
+  content: '';
+  position: absolute;
+  left: var(--guide-x, 50%);
+  width: 1px;
+  height: 22px;
+  background: linear-gradient(var(--accent), transparent);
+}
+.shard-label-wrap[data-side='above'] .shard-label::after {
+  top: 100%;
+}
+.shard-label-wrap[data-side='below'] .shard-label::after {
+  bottom: 100%;
+  transform: scaleY(-1);
+}
+
+/* coming soon: dashed blush border, no glow, no link */
+.shard-label[data-soon='true'] {
+  border: 1px dashed rgb(242 167 160 / 0.5);
+  box-shadow: var(--shadow-2);
+}
+.shard-label[data-soon='true'] .shard-label-kicker {
+  color: var(--blush);
+}
+.shard-label[data-soon='true'] .shard-label-title {
+  color: var(--text-soft);
+}
+.shard-label[data-soon='true']::after {
+  background: linear-gradient(var(--blush), transparent);
+}
+.shard-label-nolink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-soft);
+}
+.clock {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  position: relative;
+}
+.clock::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  width: 3px;
+  height: 3px;
+  border-left: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+}
+
+@keyframes label-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+p.shards-hint {
+  position: fixed;
+  right: var(--space-8);
+  bottom: var(--space-6);
+  z-index: 10;
+  margin: 0;
+  color: var(--text-soft);
+  text-transform: none;
+  letter-spacing: 0.04em;
+  animation: label-in var(--dur-enter) var(--ease-enter) both;
+}
+
+/* accessible project list: hidden until it gets keyboard focus, then shown as a small panel */
+.project-list {
+  position: fixed;
+  left: var(--space-6);
+  bottom: var(--space-6);
+  z-index: 11;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.project-list:not(:focus-within) {
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.project-list:focus-within {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  max-width: calc(100vw - 48px);
+}
+.project-list a,
+.project-list span {
+  display: inline-block;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  color: var(--cream);
+  font-size: 14px;
+  text-decoration: none;
+}
+.project-list span {
+  color: var(--text-soft);
+  border-style: dashed;
+}
+
+@media (max-width: 640px) {
+  .shard-label {
+    padding: var(--space-4) var(--space-6);
+  }
+  .shard-label-title {
+    font-size: 28px;
+  }
+  .shards-hint {
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+}

@@ -1,0 +1,180 @@
+/* Simplified page — design system pages 13–15 */
+.lite {
+  --gutter: clamp(16px, 6vw, 96px);
+}
+
+.lite-hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 128px var(--gutter) 0;
+}
+.lite-hero-head {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  align-items: end;
+  gap: var(--space-8);
+}
+.lite-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--fs-display-xl);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+.lite-title em,
+.lite-h2 em {
+  color: var(--accent);
+  font-style: italic;
+}
+.lite-title em {
+  display: block;
+}
+.lite-tagline {
+  margin: 0 0 var(--space-3);
+  max-width: 26em;
+  color: var(--text-soft);
+  font-size: var(--fs-body);
+}
+
+.lite-scene {
+  margin: var(--space-12) 0 0;
+}
+.lite-scene img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-3), 0 0 80px rgb(255 143 192 / 0.12);
+}
+.lite .lite-scene figcaption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  color: var(--text-soft);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.moon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset -3px -2px 0 0 var(--blush);
+}
+
+.lite-projects {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-24) var(--gutter) var(--space-12);
+}
+.lite-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.lite .lite-section-head .label {
+  color: var(--text-soft);
+  text-transform: none;
+}
+.lite-h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--fs-display-l);
+  line-height: 1;
+}
+.lite-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.lite-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+}
+.lite-card[data-soon='true'] {
+  border-style: dashed;
+  border-color: rgb(242 167 160 / 0.4);
+  background: rgb(51 42 86 / 0.6);
+  box-shadow: none;
+}
+.lite-card h3 {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.15;
+}
+.lite-card[data-soon='true'] h3 {
+  color: var(--text-soft);
+}
+.lite-card-kicker {
+  margin: var(--space-4) 0 0;
+  color: var(--accent);
+}
+.lite-card[data-soon='true'] .lite-card-kicker {
+  color: var(--blush);
+}
+.lite-card-body {
+  margin: var(--space-2) 0 0;
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.lite .lite-card-link {
+  margin-top: auto;
+  padding-top: var(--space-6);
+  color: var(--aqua);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+.lite-card-link:hover {
+  text-decoration: underline;
+}
+.shard-icon {
+  width: 26px;
+  height: 26px;
+  fill: var(--cream);
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+.shard-icon[data-soon='true'] {
+  fill: none;
+  stroke: var(--blush);
+  stroke-dasharray: 2 3;
+}
+
+/* the About section on this page sits in normal flow (see about.css [data-lite]) */
+.lite .about {
+  padding-top: var(--space-16);
+}
+
+@media (max-width: 900px) {
+  .lite-hero-head {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .lite-hero {
+    padding-top: 112px;
+  }
+  .lite-title {
+    font-size: clamp(44px, 14vw, 72px);
+  }
+  .lite .about {
+    padding-top: var(--space-12);
+  }
+}

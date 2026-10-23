@@ -1,0 +1,309 @@
+/* Scene 0 — design system pages 5–6 */
+.loader-scene {
+  --mug: min(56vh, 72vw, 560px); /* CameraRig mirrors this formula for the 3D mug */
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  grid-template-rows: 1fr auto;
+  padding: var(--space-24) var(--space-6) var(--space-12);
+  /* a soft lilac pool of light around the mug so the coffee and the eyes read clearly */
+  background:
+    radial-gradient(circle at 50% 42%, #6a58a6 0%, #463a7c 30%, #2e2650 58%, var(--night) 85%);
+  pointer-events: none;
+}
+
+.mug {
+  position: relative;
+  width: var(--mug);
+  aspect-ratio: 1;
+  filter: drop-shadow(0 24px 48px rgb(0 0 0 / 0.45));
+}
+
+.mug-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, #fffaf3 0%, #f6efe6 38%, #e2d6c7 78%, #cdbfae 100%);
+  box-shadow: inset 0 -6px 18px rgb(120 96 72 / 0.25);
+}
+
+/* handle seen from above, at the same 20° yaw as the 3D mug on the desk */
+.mug-handle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 66%;
+  height: 15%;
+  transform: translateY(-50%) rotate(-20deg);
+  transform-origin: 0 50%;
+}
+.mug-handle::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 32%;
+  height: 100%;
+  border-radius: 0 999px 999px 0;
+  background: linear-gradient(to bottom, #fffaf3, #e2d6c7);
+  box-shadow: inset 0 -3px 8px rgb(120 96 72 / 0.25);
+}
+
+.mug-coffee {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  overflow: hidden;
+  /* fallback when WebGL is off */
+  background: radial-gradient(circle at 35% 30%, #7a4c34, #4f3121 55%, #36211a);
+  box-shadow: inset 0 6px 18px rgb(0 0 0 / 0.55);
+}
+
+.coffee-surface {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.tutu-eyes {
+  position: absolute;
+  left: 12%;
+  top: 30%;
+  width: 76%;
+  mix-blend-mode: screen;
+  opacity: 0.95;
+}
+
+/* eye loop: blink → look right → look left → back (4.2 s, matches EYE_CYCLE_MS) */
+.eye-lid {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: eye-blink 4.2s infinite;
+}
+.eye-pupil {
+  animation: eye-look 4.2s infinite cubic-bezier(0.45, 0, 0.25, 1);
+}
+@keyframes eye-blink {
+  0%,
+  10%,
+  100% {
+    transform: scaleY(1);
+  }
+  4.5% {
+    transform: scaleY(0.06);
+  }
+}
+@keyframes eye-look {
+  0%,
+  22% {
+    transform: translateX(0);
+  }
+  32%,
+  50% {
+    transform: translateX(14px);
+  }
+  62%,
+  80% {
+    transform: translateX(-14px);
+  }
+  92%,
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.steam {
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  bottom: 55%;
+  height: 55%;
+}
+.steam span {
+  position: absolute;
+  bottom: 0;
+  width: 26%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(to top, rgb(246 239 230 / 0), rgb(246 239 230 / 0.16) 45%, rgb(246 239 230 / 0));
+  filter: blur(14px);
+  animation: steam-rise 6s infinite ease-in-out;
+}
+.steam span:nth-child(1) {
+  left: 10%;
+}
+.steam span:nth-child(2) {
+  left: 40%;
+  animation-delay: -2s;
+}
+.steam span:nth-child(3) {
+  left: 68%;
+  animation-delay: -4s;
+}
+@keyframes steam-rise {
+  0% {
+    transform: translateY(20%) scaleX(0.8);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-35%) translateX(8%) scaleX(1.25);
+    opacity: 0;
+  }
+}
+
+[data-motion='reduced'] .eye-lid,
+[data-motion='reduced'] .eye-pupil,
+[data-motion='reduced'] .steam span {
+  animation: none;
+}
+
+.loader-status {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  min-height: 110px;
+  text-align: center;
+}
+.loader-status p {
+  margin: 0;
+}
+.loader-value {
+  font-family: var(--font-mono);
+  font-size: 44px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.loader-value span {
+  color: var(--accent);
+}
+.loader-bar {
+  width: 190px;
+  height: 2px;
+  background: var(--border);
+  overflow: hidden;
+}
+.loader-bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  transition: transform var(--dur-hover) var(--ease-out);
+}
+.loader-status .label {
+  color: var(--text-soft);
+}
+.loader-done {
+  font-size: 11px;
+}
+.scroll-hint {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  color: var(--cream) !important;
+  animation: hint-in var(--dur-enter) var(--ease-enter) both;
+}
+@keyframes hint-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.hint-mouse {
+  position: relative;
+  width: 20px;
+  height: 30px;
+  border: 1.5px solid var(--cream);
+  border-radius: 10px;
+}
+.hint-mouse::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  width: 2px;
+  height: 6px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--accent);
+  animation: wheel 1.6s infinite var(--ease-out);
+}
+.hint-arrow {
+  width: 2px;
+  height: 32px;
+  background: var(--accent);
+  position: relative;
+}
+.hint-arrow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+  transform: translateY(1px) rotate(45deg);
+}
+@keyframes wheel {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .loader-scene {
+    padding-top: var(--space-32);
+  }
+}
+
+/* pupils follow the pointer (TutuEyes); while they do, the CSS look-around pauses — blinking stays */
+.eye-track {
+  transition: transform 260ms var(--ease-out);
+}
+.tutu-eyes[data-tracking='true'] .eye-pupil {
+  animation: none;
+}
+/* a soft glow so the blue eyes pop against the coffee */
+.tutu-eyes {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px rgb(159 211 240 / 0.35));
+}
+
+/* click the coffee: a drop falls (CoffeeSurface ripples, TutuEyes wobble) and the mug sways away from it */
+.mug-coffee {
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.mug[data-sway='true'] {
+  animation: mug-sway 900ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+@keyframes mug-sway {
+  0% {
+    transform: none;
+  }
+  14% {
+    transform: translate(calc(var(--sway-x) * 9px), calc(var(--sway-y) * 9px)) rotate(calc(var(--sway-x) * 3deg));
+  }
+  38% {
+    transform: translate(calc(var(--sway-x) * -5px), calc(var(--sway-y) * -5px)) rotate(calc(var(--sway-x) * -1.6deg));
+  }
+  62% {
+    transform: translate(calc(var(--sway-x) * 2px), calc(var(--sway-y) * 2px)) rotate(calc(var(--sway-x) * 0.6deg));
+  }
+  100% {
+    transform: none;
+  }
+}

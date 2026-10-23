@@ -1,0 +1,20 @@
+node_modules
+dist
+*.local
+.vercel
+.DS_Store
+# Blender autosaves / backups
+*.blend1
+blender/textures/*.tmp
+
+# personal photos and third-party reference images stay local (the site ships its own optimized photo)
+docs/*.jpg
+docs/*.jpeg
+docs/*.png
+
+# local tooling and secrets
+.claude/
+__pycache__/
+*.pyc
+.env
+.env.*

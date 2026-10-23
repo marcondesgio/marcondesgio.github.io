@@ -1,0 +1,213 @@
+.hud-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-6) var(--space-8);
+  pointer-events: none;
+}
+.hud-header > * {
+  pointer-events: auto;
+}
+.site-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+}
+.site-name em {
+  color: var(--accent);
+}
+
+.lang-switch {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: rgb(51 42 86 / 0.75);
+  backdrop-filter: blur(8px);
+}
+.lang-switch button {
+  min-width: 44px;
+  min-height: 36px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text-soft);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background var(--dur-hover) var(--ease-out), color var(--dur-hover) var(--ease-out);
+}
+.lang-switch button:hover {
+  color: var(--cream);
+}
+.lang-switch button[aria-pressed='true'] {
+  background: var(--aqua);
+  color: var(--night);
+}
+
+.progress-dots {
+  position: fixed;
+  right: var(--space-8);
+  top: 50%;
+  z-index: 10;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+.progress-dots ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.progress-dots li {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--text-soft);
+  transition: all var(--dur-hover) var(--ease-out);
+}
+.progress-dots li[data-state='done'] {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.progress-dots li[data-state='active'] {
+  width: 11px;
+  height: 11px;
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
+}
+.progress-count {
+  color: var(--text-soft);
+  font-size: 11px;
+}
+
+.debug-panel {
+  position: fixed;
+  left: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 20;
+  display: grid;
+  gap: var(--space-2);
+  width: 270px;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: rgb(36 29 59 / 0.92);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.debug-panel label {
+  display: grid;
+  gap: 2px;
+}
+.debug-panel select,
+.debug-panel input {
+  width: 100%;
+  font: inherit;
+  color: var(--cream);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 4px 6px;
+}
+
+@media (max-width: 640px) {
+  .hud-header {
+    padding: var(--space-4);
+  }
+  .site-name {
+    font-size: 18px;
+    line-height: 1.1;
+  }
+  .site-name em {
+    display: block;
+  }
+  .progress-dots {
+    right: var(--space-3);
+  }
+}
+
+/* on phones the dots would sit on the scene-0 mug: show them once the story starts */
+@media (max-width: 640px) {
+  .progress-dots {
+    transition: opacity var(--dur-enter) var(--ease-enter);
+  }
+  .progress-dots[data-intro='true'] {
+    opacity: 0;
+  }
+}
+
+/* the story is over once "Sobre mim" takes the screen */
+.progress-dots {
+  transition: opacity var(--dur-enter) var(--ease-enter);
+}
+.progress-dots[data-done='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* soft night fade behind the header so scrolling text never collides with the name / language switch */
+.hud-header::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -24px 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgb(36 29 59 / 0.85), rgb(36 29 59 / 0));
+  pointer-events: none;
+}
+
+.hud-header-end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+.site-nav {
+  display: flex;
+  gap: var(--space-6);
+}
+.site-nav a {
+  color: var(--cream);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+}
+.site-nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}
+
+/* visible only when focused (first Tab on the page) */
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -60px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--r-md);
+  background: var(--accent);
+  color: var(--night);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--dur-hover) var(--ease-out);
+}
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+@media (max-width: 640px) {
+  .site-nav {
+    display: none;
+  }
+}

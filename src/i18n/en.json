@@ -1,0 +1,228 @@
+{
+  "siteName": "Gio Marcondes",
+  "siteNameAccent": "Portfolio",
+  "documentTitle": "Gio Marcondes Portfolio",
+  "metaDescription": "Portfolio of Giovanna Marcondes, frontend developer: a night at the desk, Tutu the cat and a mug that turned into projects.",
+  "langSwitch": "Language",
+  "loading": "Brewing the coffee…",
+  "scrollHint": "Scroll down",
+  "scrollHintTouch": "Swipe up",
+  "progress": "Story progress",
+  "comingSoon": "Coming soon",
+  "openOnGithub": "opens on GitHub ↗",
+  "shard": "Shard",
+  "tapAgain": "tap again to open",
+  "comingSoonBody": "A new project is still in the kiln.",
+  "noLink": "no link yet",
+  "shardsHint": "hover over the shards",
+  "shardsHintTouch": "tap a shard to see the project",
+  "projectsTitle": "Projects",
+  "nav": {
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact",
+    "label": "Main navigation"
+  },
+  "lite": {
+    "titleA": "A night",
+    "titleB": "at the desk",
+    "tagline": "I'm Gio, a frontend developer. Tutu knocked over my coffee here — and every shard became a project.",
+    "sceneAlt": "Night-time 3D illustration: Gio typing at a white desk, seen from behind, Tutu the cat sitting next to the WORLD'S BEST DEV mug, the desk lamp on and code on the monitor.",
+    "note": "light version, no 3D — same story, less motion",
+    "shardsTitleA": "The",
+    "shardsTitleB": "shards",
+    "shardsMeta": "05 projects · open on GitHub"
+  },
+  "skip": "Skip to the projects",
+  "about": {
+    "kicker": "About me",
+    "titleA": "Frontend",
+    "titleB": "Developer",
+    "photoAlt": "Giovanna smiling, wearing glasses and a black T-shirt, holding Tutu the cat in a garden",
+    "caption": "me and Tutu (the one who broke the mug)",
+    "lead": "Frontend developer with over 8 years of experience in technology and more than 4 years working with Flutter development, web and mobile applications, and solutions for the fintech sector.",
+    "timelineLabel": "Career",
+    "timelineMore": "What I did",
+    "timeline": [
+      {
+        "period": "Nov 2021 — now",
+        "company": "Diletta Solutions",
+        "role": "Mid-level Frontend Developer",
+        "place": "Campinas, Brazil",
+        "promo": "Promoted from Junior to Mid-level in Feb 2025",
+        "tags": [
+          "Flutter",
+          "Dart",
+          "Angular",
+          "Firebase",
+          "Fintech"
+        ],
+        "bullets": [
+          "Mobile and web apps in Flutter/Dart, from layout to store release.",
+          "Layered architecture with MVVM, Clean Code and componentization for scalable, maintainable code.",
+          "REST API integration, async programming, Firebase and NoSQL databases.",
+          "Flutter ecosystem packages and native device features.",
+          "Angular development and backend support in .NET and JavaScript.",
+          "Fintech projects, with integrations and flows in the Matera ecosystem.",
+          "Git/Bitbucket, Jira and Azure DevOps; bridge between clients, Design and QA, executive meetings and status reports."
+        ]
+      },
+      {
+        "period": "Apr 2019 — Oct 2021",
+        "company": "IBM",
+        "role": "Test Specialist",
+        "place": "Hortolândia, Brazil",
+        "promo": "Promoted from Intern to Junior in Apr 2020",
+        "tags": [
+          "SIEBEL",
+          "SQL",
+          "Unix",
+          "Jenkins",
+          "QA"
+        ],
+        "bullets": [
+          "Projects for TIM Brasil on the SIEBEL CRM.",
+          "Functional and regression testing, black, white and gray box.",
+          "SQL queries, Unix environments and Jenkins pipelines to validate scenarios.",
+          "Evidence, bug reports and status updates for Accenture and TIM.",
+          "Technical manuals that cut the team's onboarding time.",
+          "Dailies and war rooms during critical release windows."
+        ]
+      },
+      {
+        "period": "Jul 2016 — Mar 2019",
+        "company": "ITS4 Solution",
+        "role": "Software Developer (intern)",
+        "place": "Itatiba, Brazil",
+        "tags": [
+          "Delphi",
+          "SQL Server",
+          "MySQL",
+          "SQLite",
+          "Firebird"
+        ],
+        "bullets": [
+          "Delphi systems backed by SQL Server, MySQL, SQLite and Firebird.",
+          "Publishing apps to Google Play and the Apple App Store.",
+          "Led the interns: task planning, technical decisions, reports and documentation.",
+          "Direct client support and a Kanban workflow."
+        ]
+      }
+    ],
+    "skillsLabel": "Skills",
+    "skills": [
+      {
+        "title": "Frontend & Mobile",
+        "items": [
+          "Flutter",
+          "Dart",
+          "Angular",
+          "TypeScript",
+          "JavaScript"
+        ]
+      },
+      {
+        "title": "Architecture",
+        "items": [
+          "MVVM",
+          "Layered architecture",
+          "Clean Code",
+          "REST APIs",
+          "Integrations",
+          "Mobile",
+          "Web"
+        ]
+      },
+      {
+        "title": "Databases",
+        "items": [
+          "Firebase",
+          "NoSQL",
+          "SQL Server",
+          "MySQL",
+          "SQLite",
+          "Firebird"
+        ]
+      },
+      {
+        "title": "Tools",
+        "items": [
+          "Git",
+          "Bitbucket",
+          "Jira",
+          "Azure DevOps",
+          "Jenkins",
+          "Unix"
+        ]
+      }
+    ],
+    "builtLabel": "Built with",
+    "built": [
+      {
+        "title": "This portfolio",
+        "items": [
+          "TypeScript",
+          "React",
+          "Three.js",
+          "React Three Fiber",
+          "GSAP + Lenis",
+          "Vite",
+          "Blender + Python",
+          "GLSL",
+          "Vitest"
+        ]
+      },
+      {
+        "title": "Ceramic Relax",
+        "items": [
+          "TypeScript",
+          "React",
+          "Three.js",
+          "React Three Fiber",
+          "React Spring",
+          "Zustand",
+          "i18next",
+          "Howler",
+          "Vite"
+        ]
+      }
+    ],
+    "educationLabel": "Education",
+    "education": [
+      {
+        "years": "2022",
+        "title": "Complex Data Mining",
+        "school": "Extecamp / Unicamp"
+      },
+      {
+        "years": "2016–2020",
+        "title": "B.Sc. in Computer Engineering",
+        "school": "Universidade São Francisco"
+      },
+      {
+        "years": "2015",
+        "title": "IT Technician",
+        "school": "E.T.E.C. Rosa Perrone Scavone"
+      }
+    ],
+    "languagesLabel": "Languages",
+    "language": "English",
+    "languageLevel": "Upper Intermediate",
+    "languageNote": "Continuously improving, with a focus on professional communication and international opportunities.",
+    "contactLabel": "Let’s talk",
+    "emailLabel": "E-mail",
+    "copy": "Copy e-mail",
+    "copied": "✓ copied!",
+    "footer": "© 2026 Gio Marcondes · made with coffee (what was left of it)"
+  },
+  "scenes": {
+    "loading": "Loading",
+    "desk": "The desk",
+    "slap": "The slap",
+    "fall": "The fall",
+    "shards": "The shards",
+    "broom": "The broom",
+    "lap": "Tutu on my lap",
+    "about": "About me"
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "siteName": "Gio Marcondes",
+  "siteNameAccent": "Portfólio",
+  "documentTitle": "Gio Marcondes Portfólio",
+  "metaDescription": "Portfólio de Giovanna Marcondes, desenvolvedora Frontend: uma noite na bancada, a gata Tutu e uma caneca que virou projetos.",
+  "langSwitch": "Idioma",
+  "loading": "Esquentando o café…",
+  "scrollHint": "Role para baixo",
+  "scrollHintTouch": "Deslize para cima",
+  "progress": "Progresso da história",
+  "comingSoon": "Em breve",
+  "openOnGithub": "abre no GitHub ↗",
+  "shard": "Caco",
+  "tapAgain": "toque de novo para abrir",
+  "comingSoonBody": "Tem projeto novo esquentando no forno.",
+  "noLink": "sem link",
+  "shardsHint": "passe o mouse nos cacos",
+  "shardsHintTouch": "toque num caco para ver o projeto",
+  "projectsTitle": "Projetos",
+  "nav": {
+    "projects": "Projetos",
+    "about": "Sobre",
+    "contact": "Contato",
+    "label": "Navegação principal"
+  },
+  "lite": {
+    "titleA": "Uma noite",
+    "titleB": "na bancada",
+    "tagline": "Sou a Gio, desenvolvedora Frontend. Aqui a Tutu derrubou meu café — e cada caco virou um projeto.",
+    "sceneAlt": "Ilustração 3D noturna: a Gio de costas digitando numa bancada branca, a gata Tutu sentada ao lado da caneca WORLD'S BEST DEV, luminária acesa e monitor com código.",
+    "note": "versão leve, sem 3D — mesma história, menos movimento",
+    "shardsTitleA": "Os",
+    "shardsTitleB": "cacos",
+    "shardsMeta": "05 projetos · abrem no GitHub"
+  },
+  "skip": "Pular para os projetos",
+  "about": {
+    "kicker": "Sobre mim",
+    "titleA": "Desenvolvedora",
+    "titleB": "Frontend",
+    "photoAlt": "Giovanna sorrindo, de óculos e camiseta preta, segurando a gata Tutu no colo, num jardim",
+    "caption": "eu e a Tutu (a culpada pela caneca)",
+    "lead": "Desenvolvedora Frontend com mais de 8 anos de experiência em tecnologia e mais de 4 anos atuando com desenvolvimento Flutter, aplicações web e mobile e soluções para o setor fintech.",
+    "timelineLabel": "Trajetória",
+    "timelineMore": "O que eu fazia",
+    "timeline": [
+      {
+        "period": "nov 2021 — atual",
+        "company": "Diletta Solutions",
+        "role": "Desenvolvedora Frontend Pleno",
+        "place": "Campinas, SP",
+        "promo": "Promovida de Júnior a Pleno em fev/2025",
+        "tags": [
+          "Flutter",
+          "Dart",
+          "Angular",
+          "Firebase",
+          "Fintech"
+        ],
+        "bullets": [
+          "Aplicações mobile e web em Flutter/Dart, do layout à publicação.",
+          "Arquitetura em camadas com MVVM, Clean Code e componentização para escalar e manter o código.",
+          "Integração com APIs REST, programação assíncrona, Firebase e bancos NoSQL.",
+          "Pacotes e bibliotecas do ecossistema Flutter e recursos nativos dos dispositivos.",
+          "Desenvolvimento em Angular e apoio ao backend em .NET e JavaScript.",
+          "Projetos no setor fintech, com integrações e fluxos do ecossistema Matera.",
+          "Git/Bitbucket, Jira e Azure DevOps; ponte com clientes, Design e QA, reuniões executivas e status reports."
+        ]
+      },
+      {
+        "period": "abr 2019 — out 2021",
+        "company": "IBM",
+        "role": "Test Specialist",
+        "place": "Hortolândia, SP",
+        "promo": "Promovida de Estagiária a Júnior em abr/2020",
+        "tags": [
+          "SIEBEL",
+          "SQL",
+          "Unix",
+          "Jenkins",
+          "QA"
+        ],
+        "bullets": [
+          "Projetos para a TIM Brasil no CRM SIEBEL.",
+          "Testes funcionais e de regressão, em abordagens black, white e gray box.",
+          "Consultas SQL, ambientes Unix e pipelines no Jenkins para validar cenários.",
+          "Evidências, relatórios de bugs e status para Accenture e TIM.",
+          "Manuais técnicos que reduziram o tempo de onboarding do time.",
+          "Dailys e war rooms em janelas críticas de entrega."
+        ]
+      },
+      {
+        "period": "jul 2016 — mar 2019",
+        "company": "ITS4 Solution",
+        "role": "Desenvolvedora de Software (estágio)",
+        "place": "Itatiba, SP",
+        "tags": [
+          "Delphi",
+          "SQL Server",
+          "MySQL",
+          "SQLite",
+          "Firebird"
+        ],
+        "bullets": [
+          "Sistemas em Delphi com SQL Server, MySQL, SQLite e Firebird.",
+          "Publicação de apps na Google Play e na Apple Store.",
+          "Liderança dos estagiários: divisão de tarefas, decisões técnicas, relatórios e documentação.",
+          "Suporte direto a clientes e fluxo Kanban."
+        ]
+      }
+    ],
+    "skillsLabel": "Competências",
+    "skills": [
+      {
+        "title": "Frontend & Mobile",
+        "items": [
+          "Flutter",
+          "Dart",
+          "Angular",
+          "TypeScript",
+          "JavaScript"
+        ]
+      },
+      {
+        "title": "Arquitetura",
+        "items": [
+          "MVVM",
+          "Arquitetura em camadas",
+          "Clean Code",
+          "APIs REST",
+          "Integrações",
+          "Mobile",
+          "Web"
+        ]
+      },
+      {
+        "title": "Banco de dados",
+        "items": [
+          "Firebase",
+          "NoSQL",
+          "SQL Server",
+          "MySQL",
+          "SQLite",
+          "Firebird"
+        ]
+      },
+      {
+        "title": "Ferramentas",
+        "items": [
+          "Git",
+          "Bitbucket",
+          "Jira",
+          "Azure DevOps",
+          "Jenkins",
+          "Unix"
+        ]
+      }
+    ],
+    "builtLabel": "Feito com",
+    "built": [
+      {
+        "title": "Este portfólio",
+        "items": [
+          "TypeScript",
+          "React",
+          "Three.js",
+          "React Three Fiber",
+          "GSAP + Lenis",
+          "Vite",
+          "Blender + Python",
+          "GLSL",
+          "Vitest"
+        ]
+      },
+      {
+        "title": "Ceramic Relax",
+        "items": [
+          "TypeScript",
+          "React",
+          "Three.js",
+          "React Three Fiber",
+          "React Spring",
+          "Zustand",
+          "i18next",
+          "Howler",
+          "Vite"
+        ]
+      }
+    ],
+    "educationLabel": "Formação",
+    "education": [
+      {
+        "years": "2022",
+        "title": "Mineração de Dados Complexos",
+        "school": "Extecamp / Unicamp"
+      },
+      {
+        "years": "2016–2020",
+        "title": "Bacharelado em Engenharia de Computação",
+        "school": "Universidade São Francisco"
+      },
+      {
+        "years": "2015",
+        "title": "Técnico em Informática",
+        "school": "E.T.E.C. Rosa Perrone Scavone"
+      }
+    ],
+    "languagesLabel": "Idiomas",
+    "language": "Inglês",
+    "languageLevel": "Upper Intermediate",
+    "languageNote": "Em evolução contínua, com foco em comunicação profissional e oportunidades internacionais.",
+    "contactLabel": "Vamos conversar",
+    "emailLabel": "E-mail",
+    "copy": "Copiar e-mail",
+    "copied": "✓ copiado!",
+    "footer": "© 2026 Gio Marcondes · feito com café (o que sobrou)"
+  },
+  "scenes": {
+    "loading": "Carregando",
+    "desk": "A bancada",
+    "slap": "O tapa",
+    "fall": "A queda",
+    "shards": "Os cacos",
+    "broom": "A vassoura",
+    "lap": "Tutu no colo",
+    "about": "Sobre mim"
+  }
+}
